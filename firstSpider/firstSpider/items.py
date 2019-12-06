@@ -11,4 +11,6 @@ import scrapy
 class FirstspiderItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    #设置获取item的值
+    content = scrapy.Field()
+    link = scrapy.Field()

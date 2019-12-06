@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-
+from firstSpider.items import FirstspiderItem
 
 class TestspiderSpider(scrapy.Spider):
     name = 'testSpider'
@@ -8,4 +8,6 @@ class TestspiderSpider(scrapy.Spider):
     start_urls = ['http://www.baidu.com/']
 
     def parse(self, response):
+        item = FirstspiderItem()
         pass
+
