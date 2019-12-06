@@ -11,7 +11,6 @@ class FirstspiderPipeline(object):
     #爬虫开始就会触发这个方法
     def open_spider(self,spider):
         print('爬虫开始')
-        pass
 
     def process_item(self, item, spider):
         #假设content是标题
@@ -25,4 +24,3 @@ class FirstspiderPipeline(object):
     #爬虫结束触发这个方法
     def close_spider(self,spider):
         print('爬虫结束')
-        pass
