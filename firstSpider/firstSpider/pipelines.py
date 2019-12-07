@@ -5,9 +5,8 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
-
-from scrapy.exceptions import DropItem
-import json
+import numpy as np
+import pandas as pd
 
 class FirstspiderPipeline(object):
 
@@ -16,53 +15,43 @@ class FirstspiderPipeline(object):
         print('爬虫开始')
 
     def process_item(self, item, spider):
-        #假设content是标题
-        contentList = item['content']
-        linkList = item['link']
-        #dict(item) 将item转成dic 然后json.dumps转成json字符串
-        for i in range(0,len(contentList)):
-            content = contentList[i]
-            link = linkList[i]
-            print(link)
-            print(content)
-        return item
-
+        df = pd.DataFrame()
+        for i in range(0,len(item['city'])):
+            np.array1 = [item['city'][i]]
+            #拼接上地区
+            #np.array1 = np.append(np.array1,item['city'][i])
+            #拼接天气第一部分
+            np.array1 = np.append(np.array1,item['dayDesc'][2*i])
+            #拼接风力和温度
+            np.array1 = np.append(np.array1,item['dayDesc1'][4*i:4*i+2])
+            #拼接天气第二部分
+            np.array1 = np.append(np.array1,item['dayDesc'][2*i+1])
+            #拼接风力和温度2
+            np.array1 = np.append(np.array1,item['dayDesc1'][4*i+2:4*i+4])
+            #每次新添加一列
+            df[i] = pd.Series(np.array1)
+        #然后利用转至将期排列正确
+        df = df.T
+        #修改其列标题s
+        df.columns = ['县/区','天气状况','风力方向','最高温度','天气状况','风力方向','最低温度']
+        print (df)
+        address = '/Users/fujinshi/Desktop/weibo.csv'
+        print('------')
+        df.to_csv(address)
+        print ('成功csv格式')
+        
         '''
-        ①如果不满意可以DropItem，抛出异常
+        1.找出拼接的规律
+        i=0 city[0] + dayDesc [0] + dayDesc1[0,1] + dayDesc[1] + dayDesc1[2,3]
+        i=1 city[1] + dayDesc [2] + dayDesc1[4,5] + dayDesc[3] + dayDesc1[6,7]
+        i=2 city[2] + dayDesc [4] + dayDesc1[8,9] + dayDesc[5] + dayDesc1[10,11]
+        i=n city[n] + dayDesc [2n] + dayDesc1[4n,4n+1] + dayDesc[2n+1] + dayDesc1[4n+2,4n+3]
+        实际右侧是开 所以右侧+1
+        i=n city[n] + dayDesc [2n] + dayDesc1[4n,4n+2] + dayDesc[2n+1] + dayDesc1[4n+2,4n+4]
 
-            if len(content) > 20:
-                return item
-            else:
-                raise DropItem('Missing short content')
-        ②存储成文件
-        ③去重
-        一个用于去重的过滤器，丢弃那些已经被处理过的item。
-        让我们假设我们的item有一个唯一的id，但是我们spider返回的多个item中包含有相同的id:
-            def __init__(self):
-            self.ids_seen = set()
-    
-        def process_item(self, item, spider):
-            if item['id'] in self.ids_seen:
-                raise DropItem("Duplicate item found: %s" % item)
-            else:
-                self.ids_seen.add(item['id'])
-                return item
-        ④启用一个Item
-        为了启用一个Item Pipeline组件，你必须将它的类添加到 ITEM_PIPELINES 配置，就像下面这个例子:
-
-        ITEM_PIPELINES = {
-            'myproject.pipelines.PricePipeline': 300,
-            'myproject.pipelines.JsonWriterPipeline': 800,
-        }
-        分配给每个类的整型值，确定了他们运行的顺序，item按数字从低到高的顺序，通过pipeline，通常将这些数字定义在0-1000范围内。
-
-
+        2.构建对应list和dataFrame
+        3.转至T一下
         '''
-
-
-
-
-
 
     #爬虫结束触发这个方法
     def close_spider(self,spider):

@@ -11,5 +11,8 @@ class FirstspiderItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     #设置获取item的值
-    content = scrapy.Field()
-    link = scrapy.Field()
+    city = scrapy.Field()
+    date = scrapy.Field()
+    dayDesc = scrapy.Field()
+    dayDesc1 = scrapy.Field()
+
