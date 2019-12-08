@@ -39,8 +39,8 @@ IP_LIST = [
     '180.122.145.52:9999',
     '60.189.124.116:8118',
     '117.88.176.99:3000',
-    '117.57.91.1:9999',
-    '114.239.110.24:9999',
+    '175.43.35.28:9999',
+    '183.166.102.77:9999',
     '183.154.53.249:9999',
     '117.95.200.120:9999',
     '114.239.198.61:9999'
@@ -85,9 +85,9 @@ DEFAULT_REQUEST_HEADERS = {
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-   'firstSpider.middlewares.FirstspiderDownloaderMiddleware': None,
-   'firstSpider.UserAgentDownloadMiddleware.UserAgentDownloadMiddleware':601,
-    'firstSpider.UserAgentDownloadMiddleware.RandomIpProxyMiddleware':600
+   'firstSpider.middlewares.FirstspiderDownloaderMiddleware': 300,
+    'firstSpider.UserAgentDownloadMiddleware.UserAgentDownloadMiddleware': 601,
+    'firstSpider.UserAgentDownloadMiddleware.RandomIpProxyMiddleware': 600
 }
 
 # Enable or disable extensions

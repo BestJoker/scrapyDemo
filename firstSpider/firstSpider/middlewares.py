@@ -79,11 +79,6 @@ class FirstspiderDownloaderMiddleware(object):
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
-        print ('+++++')
-        ua = random.choice(USER_AGENT_LIST)
-        if ua:
-            print (ua)
-            request.headers.setdafault('User-Agent', ua)
         return None
 
     def process_response(self, request, response, spider):
