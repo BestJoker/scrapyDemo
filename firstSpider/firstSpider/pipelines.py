@@ -16,14 +16,13 @@ class FirstspiderPipeline(object):
         print('爬虫开始')
 
     def process_item(self, item, spider):
-        #假设content是标题
         print (item['title'])
         print (item['des'])
         print (item['round'])
         print (item['url'])
         print (item['date'])
+        print ('\n')
         return item
-
 
     #爬虫结束触发这个方法
     def close_spider(self,spider):

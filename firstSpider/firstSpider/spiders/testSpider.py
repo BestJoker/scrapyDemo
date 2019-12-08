@@ -2,11 +2,10 @@
 import scrapy
 import json
 import random
-from firstSpider.items import FirstspiderItem
-from firstSpider.settings import IP_LIST
 import numpy as np
 import pandas as pd
 import datetime
+from firstSpider.items import FirstspiderItem
 
 class TestspiderSpider(scrapy.Spider):
     #爬虫的名字，必须是唯一的
@@ -19,22 +18,20 @@ class TestspiderSpider(scrapy.Spider):
     def start_requests(self):
         #生成指定范围的日期
         dateList = pd.date_range(start='2019-11-06',end='2019-11-08')
-        print (dateList)
-        for date in dateList:
+        print ('请求日期列表%s'%str(dateList.date))
+        for datetime in dateList:
             #获取timestamp的日期，将日期转换成字符串
-            date_date = date.date()
+            date = datetime.date()
             #设置post参数
             formdata = {
-                'time':str(date_date)
+                'time':str(date)
             }
-            print (formdata)
+            #循环发送请求
             for url in self.start_urls:
-                print ('----')
                 #发送post请求
                 yield scrapy.FormRequest(url=url,formdata=formdata,callback=self.parse)
 
     def parse(self, response):
-
         #将爬取到的json字段转换成dic的数据类型
         res = json.loads(response.body_as_unicode())
         print(res)

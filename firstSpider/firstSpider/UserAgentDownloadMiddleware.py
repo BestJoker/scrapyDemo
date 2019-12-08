@@ -9,4 +9,4 @@ class UserAgentDownloadMiddleware(object):
         #随机选取一个
         user_agent = random.choice(USER_AGENT_LIST)
         request.headers['User-Agent'] = user_agent
-        print ('随机请求头设置 UserAgentDownloadMiddleware:process_request \n',user_agent)
+        #print ('随机请求头设置 UserAgentDownloadMiddleware:process_request \n',user_agent)
