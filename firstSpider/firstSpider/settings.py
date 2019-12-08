@@ -72,8 +72,7 @@ ROBOTSTXT_OBEY = False
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-  'Accept-Language': 'en',
-  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36'
+  'Accept-Language': 'en'
 }
 
 # Enable or disable spider middlewares
@@ -85,9 +84,8 @@ DEFAULT_REQUEST_HEADERS = {
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-   'firstSpider.middlewares.FirstspiderDownloaderMiddleware': 300,
-    'firstSpider.UserAgentDownloadMiddleware.UserAgentDownloadMiddleware': 601,
-    'firstSpider.UserAgentDownloadMiddleware.RandomIpProxyMiddleware': 600
+   'firstSpider.middlewares.FirstspiderDownloaderMiddleware': None,
+    'firstSpider.UserAgentDownloadMiddleware.UserAgentDownloadMiddleware': 601
 }
 
 # Enable or disable extensions

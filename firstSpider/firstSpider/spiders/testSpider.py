@@ -9,35 +9,23 @@ class TestspiderSpider(scrapy.Spider):
     #爬虫的名字，必须是唯一的
     name = 'testSpider'
     #允许的域名，限制不会乱跑到其他域名上去了
-    #allowed_domains = ['itjuzi.com']
+    allowed_domains = ['itjuzi.com']
     # 初始化的url地址
     start_urls = ['http://www.itjuzi.com/api/newsletter']
 
     def start_requests(self):
 
-        url = 'http://icanhazip.com'
-
-        for i in range(2):
-            proxy = random.choice(IP_LIST)
-            ip = 'http://' + proxy
-            print (ip)
-            yield scrapy.Request(url=url, callback=self.parse, meta={'proxy': ip})
-
-        '''
         #设置post参数
         formdata = {
             'time':'2019-12-07'
         }
         for url in self.start_urls:
+            print ('----')
             #发送post请求
-            yield scrapy.FormRequest(url=url,formdata=formdata,callback=self.parse,dont_filter=True)
-        '''
+            yield scrapy.FormRequest(url=url,formdata=formdata,callback=self.parse)
 
     def parse(self, response):
 
-        print(response.text)
-
-        '''
         #将爬取到的json字段转换成dic的数据类型
         res = json.loads(response.body_as_unicode())
         print(res)
@@ -50,4 +38,3 @@ class TestspiderSpider(scrapy.Spider):
             item['url'] = contentItem['url']
             item['date'] = contentItem['date']
             yield item
-        '''
