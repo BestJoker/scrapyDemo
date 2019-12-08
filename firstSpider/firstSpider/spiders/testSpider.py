@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from firstSpider.items import FirstspiderItem
 import json
-from firstSpider.settings import IP_LIST
 import random
+from firstSpider.items import FirstspiderItem
+from firstSpider.settings import IP_LIST
+import numpy as np
+import pandas as pd
+import datetime
 
 class TestspiderSpider(scrapy.Spider):
     #爬虫的名字，必须是唯一的
@@ -14,15 +17,21 @@ class TestspiderSpider(scrapy.Spider):
     start_urls = ['http://www.itjuzi.com/api/newsletter']
 
     def start_requests(self):
-
-        #设置post参数
-        formdata = {
-            'time':'2019-12-07'
-        }
-        for url in self.start_urls:
-            print ('----')
-            #发送post请求
-            yield scrapy.FormRequest(url=url,formdata=formdata,callback=self.parse)
+        #生成指定范围的日期
+        dateList = pd.date_range(start='2019-11-06',end='2019-11-08')
+        print (dateList)
+        for date in dateList:
+            #获取timestamp的日期，将日期转换成字符串
+            date_date = date.date()
+            #设置post参数
+            formdata = {
+                'time':str(date_date)
+            }
+            print (formdata)
+            for url in self.start_urls:
+                print ('----')
+                #发送post请求
+                yield scrapy.FormRequest(url=url,formdata=formdata,callback=self.parse)
 
     def parse(self, response):
 
