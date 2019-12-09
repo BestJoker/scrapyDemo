@@ -12,7 +12,7 @@ class TestspiderSpider(scrapy.Spider):
 
         # 初始化的url地址
         start_urls = ['http://2000019.ip138.com/']
-        
+
         #参数配置
         formdata = {
 
@@ -23,9 +23,8 @@ class TestspiderSpider(scrapy.Spider):
             yield scrapy.FormRequest(url=url, formdata=formdata, callback=self.parse)
 
     def parse(self, response):
-        print(response)
         item = FirstspiderItem()
         data = response.xpath('//body/p[1]/text()').extract()
-        print(data)
+        print('结果 %s' % data)
         #返回item否则不会调用items文件中的方法
         yield item
