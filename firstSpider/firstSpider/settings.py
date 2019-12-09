@@ -36,6 +36,23 @@ USER_AGENT_LIST=[
     "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24"
 ]
 
+HTTP_IP_LIST = [
+    'http://27.152.90.11:9999',
+    'http://180.122.146.67:44581',
+    'http://183.164.239.57:9999',
+    'http://175.42.128.68:9999',
+    'http://101.75.160.105:8118'
+]
+
+HTTPS_IP_LIST = [
+    '223.198.25.217:9999',
+    '122.192.184.61:9999',
+    '112.84.72.60:9999',
+    '117.57.90.170:9999'
+]
+
+
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'firstSpider (+http://www.yourdomain.com)'
 
@@ -74,7 +91,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-   'firstSpider.middlewares.FirstspiderDownloaderMiddleware': None,
+   'firstSpider.middlewares.FirstspiderDownloaderMiddleware': 300,
     'firstSpider.UserAgentDownloadMiddleware.UserAgentDownloadMiddleware': 601
 
 }
