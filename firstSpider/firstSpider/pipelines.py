@@ -7,6 +7,8 @@
 
 
 from scrapy.exceptions import DropItem
+import json
+
 '''
 Scrapy管道的电影用途
 清理HTML数据
@@ -19,6 +21,7 @@ class FirstspiderPipeline(object):
 
     #爬虫开始就会触发这个方法
     def open_spider(self,spider):
+        self.file = open('ip.txt','w',encoding="utf-8")
         print('爬虫开始')
 
     '''
@@ -41,7 +44,9 @@ class FirstspiderPipeline(object):
     def process_item(self, item, spider):
         print(item)
         #可以在这里筛选item
-        if (1):
+        if (item['http_type'] == 'HTTP' and item['lucency_state'] == '高匿'):
+            data = json.dumps(dict(item)) + "\n"
+            self.file.write(data)
             return item
         else:
             raise DropItem('Missing title in %s' % item)
@@ -49,4 +54,5 @@ class FirstspiderPipeline(object):
 
     #爬虫结束触发这个方法
     def close_spider(self,spider):
+        self.file.close()
         print('爬虫结束')
