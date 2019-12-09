@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 import scrapy
 import json
-import random
-import numpy as np
 import pandas as pd
-import datetime
+import time
 from firstSpider.items import FirstspiderItem
 
 class TestspiderSpider(scrapy.Spider):
@@ -34,7 +32,6 @@ class TestspiderSpider(scrapy.Spider):
     def parse(self, response):
         #将爬取到的json字段转换成dic的数据类型
         res = json.loads(response.body_as_unicode())
-        print(res)
         item = FirstspiderItem()
         #返回item否则不会调用items文件中的方法
         for contentItem in res['data']:
@@ -42,5 +39,8 @@ class TestspiderSpider(scrapy.Spider):
             item['des'] = contentItem['des']
             item['round'] = contentItem['round']
             item['url'] = contentItem['url']
-            item['date'] = contentItem['date']
+            #将日期转成时间戳，然后将时间戳格式化
+            ltime = time.localtime(contentItem['date'])
+            dt = time.strftime('%Y-%m-%d',ltime)
+            item['date'] = dt
             yield item
