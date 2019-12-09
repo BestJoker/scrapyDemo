@@ -7,7 +7,13 @@
 
 
 from scrapy.exceptions import DropItem
-import json
+'''
+Scrapy管道的电影用途
+清理HTML数据
+验证抓取的数据（检查项目是否包含特定字段）
+检查重复（并删除）
+将抓取的数据存储在数据库中
+'''
 
 class FirstspiderPipeline(object):
 
@@ -15,53 +21,29 @@ class FirstspiderPipeline(object):
     def open_spider(self,spider):
         print('爬虫开始')
 
+    '''
+        process_item(self, item, spider) -- 必须实现方法
+
+        每个 Item Pipeline 组件都需要调用该方法，这个方法必须返回一个 Item (或任何继承类)对象， 
+        或是抛出 DropItem 异常，被丢弃的 item 将不会被之后的 pipeline 组件所处理
+
+        需要传入的参数为：
+        item (Item 对象) ： 被爬取的 item
+        spider (Spider 对象) ： 爬取该 item 的 spider
+
+        持久化流程：
+    ​    1.爬虫文件爬取到数据后，需要将数据封装到items对象中。
+    ​    2.使用yield关键字将items对象提交给pipelines管道进行持久化操作。
+    ​    3.在管道文件中的process_item方法中接收爬虫文件提交过来的item对象，然后编写持久化存储的代码将item对象中存储的数据进行持久化存储
+    ​    4.settings.py配置文件中开启管道
+
+    '''
     def process_item(self, item, spider):
-        #假设content是标题
-        contentList = item['content']
-        linkList = item['link']
-        #dict(item) 将item转成dic 然后json.dumps转成json字符串
-        for i in range(0,len(contentList)):
-            content = contentList[i]
-            link = linkList[i]
-            print(link)
-            print(content)
-        return item
-
-        '''
-        ①如果不满意可以DropItem，抛出异常
-
-            if len(content) > 20:
-                return item
-            else:
-                raise DropItem('Missing short content')
-        ②存储成文件
-        ③去重
-        一个用于去重的过滤器，丢弃那些已经被处理过的item。
-        让我们假设我们的item有一个唯一的id，但是我们spider返回的多个item中包含有相同的id:
-            def __init__(self):
-            self.ids_seen = set()
-    
-        def process_item(self, item, spider):
-            if item['id'] in self.ids_seen:
-                raise DropItem("Duplicate item found: %s" % item)
-            else:
-                self.ids_seen.add(item['id'])
-                return item
-        ④启用一个Item
-        为了启用一个Item Pipeline组件，你必须将它的类添加到 ITEM_PIPELINES 配置，就像下面这个例子:
-
-        ITEM_PIPELINES = {
-            'myproject.pipelines.PricePipeline': 300,
-            'myproject.pipelines.JsonWriterPipeline': 800,
-        }
-        分配给每个类的整型值，确定了他们运行的顺序，item按数字从低到高的顺序，通过pipeline，通常将这些数字定义在0-1000范围内。
-
-
-        '''
-
-
-
-
+        #可以在这里筛选item
+        if (1):
+            return item
+        else:
+            raise DropItem('Missing title in %s' % item)
 
 
     #爬虫结束触发这个方法
