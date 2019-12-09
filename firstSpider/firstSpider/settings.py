@@ -39,7 +39,7 @@ USER_AGENT_LIST=[
 HTTP_IP_LIST = [
     'http://27.152.90.11:9999',
     'http://180.122.146.67:44581',
-    'http://183.164.239.57:9999',
+    'http://115.211.227.2:9999',
     'http://175.42.128.68:9999',
     'http://101.75.160.105:8118'
 ]
@@ -65,7 +65,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
