@@ -31,9 +31,9 @@ class TestspiderSpider(scrapy.Spider):
     def parse_item(self,response):
         print('----')
         url_list = response.xpath('//div[@class = "container"]/div[@class = "list"]/div/img/@src').extract()
-        title_list = response.xpath('//h1[@class = "main"]/text()').extract()
+        title_list = response.xpath('//div[@class = "container"]/div[@class = "list"]/div/img/@alt').extract()
         item = FirstspiderItem()
         item['image_urls'] = url_list
-        item['images'] = title_list
+        item['image_title'] = title_list
         print(item)
         yield item

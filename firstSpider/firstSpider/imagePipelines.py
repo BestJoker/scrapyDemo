@@ -23,18 +23,18 @@ class SpDownimagePipeline(ImagesPipeline):
 
     def get_media_requests(self, item, info):
         print('+++++++')
-        title_list = item['images']
+        title_list = item['image_title']
         url_list = item['image_urls']
         print(url_list)
-        #如果没有标题则取消下载item
-        if (len(title_list)):
-            # 从item中获取图片url并发送请求，image_urls就是items.py中定义的字段
-            for url in url_list:
-                # meta作用就是可以将item的值传给下一个函数使用，类似于先缓存起来
-                yield scrapy.Request(url,meta={'item': item})
-        else:
-            raise DropItem('Missing title in %s' % item)
-
+        # 从item中获取图片url并发送请求，image_urls就是items.py中定义的字段
+        for i in range(0,len(url_list)):
+            # meta作用就是可以将item的值传给下一个函数使用，类似于先缓存起来
+            url = url_list[i]
+            title = title_list[i]
+            if(len(title)):
+                yield scrapy.Request(url, meta={'url': url,'title':title})
+            else:
+                raise DropItem('Missing title in %s' % item)
 
     '''
     item_completed(results, item, info)
@@ -59,10 +59,7 @@ class SpDownimagePipeline(ImagesPipeline):
         为了能够自定义图片的名称，如果不重写，SHA1 hash格式，类似full/63bbfea82b8880ed33cdb762aa11fab722a90a24.jpg
         """
         # 获取item，从get_media_requests的Request中获取
-        item = request.meta['item']
-        # 图片名称，一般用split（‘/’）分割后取最后一个值也就是-1，这里没用-1是因为图片最后一个字段不是随机数
-        # 是长乘以宽如：452x340c.jpg，容易重名，所以用的-2，倒数第二个字段
-        image_guid = request.url.split('/')[-2]+'.jpg'
-        fullname = 'full/%s/%s' % (item['images'][0],image_guid)
+        title = request.meta['title']
+        fullname = title + '.jpg'
         print('图片的名字是%s' % fullname)
         return fullname

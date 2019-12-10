@@ -12,5 +12,5 @@ class FirstspiderItem(scrapy.Item):
     # name = scrapy.Field()
     #设置获取item的值
     image_urls = scrapy.Field()
-    images = scrapy.Field()
+    image_title = scrapy.Field()
 
