@@ -10,7 +10,7 @@ class TestspiderSpider(scrapy.Spider):
 
     def start_requests(self):
         # 初始化的url地址
-        start_urls = ['https://bj.lianjia.com/ershoufang/']
+        start_urls = ['http://bj.lianjia.com/ershoufang/']
         #参数配置
         formdata = {
 
