@@ -105,8 +105,31 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'firstSpider.pipelines.FirstspiderPipeline': 300,
+    #'firstSpider.pipelines.FirstspiderPipeline': 200,
+    # 1.首先使用media pipline首先要启用它，在setting中配置：
+    'firstSpider.imagePipelines.SpDownimagePipeline': 300
 }
+
+#3.在setting中添加下载路径和字段：
+IMAGES_STORE = '/Users/fujinshi/Desktop/images'
+
+#4.为了避免下载最近下载的文件，可以设置FILES_EXPIRES或IMAGES_EXPIRES来配置缓存时间：
+# 120天后过期
+FILES_EXPIRES = 120
+# 30天后过期
+IMAGES_EXPIRES = 30
+
+#Images Pipline可以自动创建下载图像的缩略图
+IMAGES_THUMBS = {
+    'small':(50,50),
+    'big':(270,270)
+}
+#如果想过滤掉小图片，通过设置IMAGES_MIN_HEIGHT和 IMAGES_MIN_WIDTH来指定图像大小：
+IMAGES_MIN_HEIGHT = 110
+IMAGES_MIN_WIDTH = 110
+
+# 允许重定向
+MEDIA_ALLOW_REDIRECTS = True
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

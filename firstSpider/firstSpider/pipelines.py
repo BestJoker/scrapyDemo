@@ -40,6 +40,7 @@ class FirstspiderPipeline(object):
     '''
     def process_item(self, item, spider):
         #可以在这里筛选item
+        print('process_item')
         if (1):
             return item
         else:
