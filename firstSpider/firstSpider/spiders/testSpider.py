@@ -22,11 +22,11 @@ class TestspiderSpider(scrapy.Spider):
 
     def parse(self, response):
         url_list = response.xpath('//a[@class="title"]/@href').extract()
-        yield scrapy.FormRequest(url=url_list[0], callback=self.parse_item)
-        '''
+        #yield scrapy.FormRequest(url=url_list[0], callback=self.parse_item)
+        #'''
         for url in url_list:
             yield scrapy.FormRequest(url=url,callback=self.parse_item)
-        '''
+        #'''
 
     def parse_item(self,response):
         print('----')

@@ -59,7 +59,16 @@ class SpDownimagePipeline(ImagesPipeline):
         为了能够自定义图片的名称，如果不重写，SHA1 hash格式，类似full/63bbfea82b8880ed33cdb762aa11fab722a90a24.jpg
         """
         # 获取item，从get_media_requests的Request中获取
+        print('进入到了 file_path方法')
         title = request.meta['title']
-        fullname = title + '.jpg'
-        print('图片的名字是%s' % fullname)
+        list = title.split('-')
+        print(')))))')
+        print(list)
+        #将图片名字分割，然后划分文件夹和命名
+        fullname =''
+        if (len(list) > 1):
+            fullname = list[0] + '/' + list[1] + '.jpg'
+        else:
+            fullname = title + '/' + title + '.jpg'
+        print('图片地址是',fullname)
         return fullname
