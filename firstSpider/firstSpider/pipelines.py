@@ -40,11 +40,13 @@ class FirstspiderPipeline(object):
     '''
     def process_item(self, item, spider):
         #可以在这里筛选item
-        if (1):
-            return item
-        else:
-            raise DropItem('Missing title in %s' % item)
-
+        for i in range(0,len(item['rank'])):
+            rank = item['rank'][i]
+            name = item['name'][i]
+            score = item['score'][i]
+            comment_num = item['comment_num'][i]
+            print(rank,name,score,comment_num)
+        return item
 
     #爬虫结束触发这个方法
     def close_spider(self,spider):

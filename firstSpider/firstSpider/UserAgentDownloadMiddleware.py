@@ -22,5 +22,5 @@ class UserAgentDownloadMiddleware(object):
             ip = random.choice(HTTPS_IP_LIST)
         else:
             ip = random.choice(HTTP_IP_LIST)
-        request.meta['proxy'] = ip
-        print('请求ip为%s' % request.meta['proxy'])
+        #request.meta['proxy'] = ip
+        #print('请求ip为%s' % request.meta['proxy'])

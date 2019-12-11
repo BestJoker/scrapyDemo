@@ -2,7 +2,7 @@
 
 from scrapy import cmdline
 
-if (0):
+if (1):
     #调用爬虫 不输出日志
     cmdline.execute('scrapy crawl testSpider --nolog'.split())
 else:
