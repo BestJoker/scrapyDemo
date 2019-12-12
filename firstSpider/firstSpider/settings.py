@@ -110,16 +110,16 @@ ITEM_PIPELINES = {
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
-#AUTOTHROTTLE_ENABLED = True
-# The initial download delay
-#AUTOTHROTTLE_START_DELAY = 5
-# The maximum download delay to be set in case of high latencies
-#AUTOTHROTTLE_MAX_DELAY = 60
-# The average number of requests Scrapy should be sending in parallel to
-# each remote server
-#AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
-# Enable showing throttling stats for every response received:
-#AUTOTHROTTLE_DEBUG = False
+#开启访问频率限制
+AUTOTHROTTLE_ENABLED = True
+#设置访问开始的延迟
+AUTOTHROTTLE_START_DELAY = 5
+#设置访问之间的最大延迟
+AUTOTHROTTLE_MAX_DELAY = 60
+#设置Scrapy 并行发给每台远程服务器的请求数量
+AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
+#设置下裁之后的自动延迟
+AUTOTHROTTLE_DEBUG = False
 
 # Enable and configure HTTP caching (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
