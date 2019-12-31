@@ -13,6 +13,7 @@ class UserAgentDownloadMiddleware(object):
         request.headers['User-Agent'] = user_agent
         #print ('随机请求头设置 UserAgentDownloadMiddleware:process_request \n',user_agent)
 
+        '''
         #对拦截到请求的url进行判断（协议头到底是http还是https）
         #request.url返回值：http://www.xxx.com
         h = request.url.split(':')[0]
@@ -24,3 +25,4 @@ class UserAgentDownloadMiddleware(object):
             ip = random.choice(HTTP_IP_LIST)
         request.meta['proxy'] = ip
         print('请求ip为%s' % request.meta['proxy'])
+        '''
